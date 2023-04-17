@@ -49,16 +49,17 @@ const server = http.createServer((req, res) => {
         req.on('end', function () {
             const parsedBody = Buffer.concat(body).toString();
             console.log(parsedBody);
+            const value = parsedBody.split("=")[1];
+            res.write("<html>");
+            res.write("<head><title>Node Server</title></head>");
+            res.write("<body>");
+            res.write("<div>Received Message Form</div>");
+            res.write(`<div>Message Content: ${value}</div>`);
+            res.write("</body>");
+            res.write("</html>");
+            return res.end();
         });
-        res.setHeader('Content-Type', "text/html");
-        res.write("Received Message Form");
-        return res.end();
     }
-    res.write("<html>");
-    res.write("<head><title>Node Server</title></head>");
-    res.write("<body><h2>Hello World</h2></body>");
-    res.write("</html>");
-    res.end();
 });
 server.listen(port, () => {
     console.log(`Server listeneing on port ${port}`);
