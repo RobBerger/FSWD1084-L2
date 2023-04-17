@@ -19,12 +19,19 @@ const server = http.createServer((req: http.IncomingMessage, res: http.ServerRes
         return res.end();
     }
     else if (url === '/message' && method == 'POST') {
+
         const body: Buffer[] = [];
     
         req.on('data', function(datachunk) {
             console.log(datachunk);
             body.push(datachunk);
-        })
+        });
+    
+        req.on('end', function() {
+            const parsedBody = Buffer.concat(body).toString();
+            console.log(parsedBody);
+        });
+    
         res.setHeader('Content-Type', "text/html");
         res.write("Received Message Form")
         return res.end();

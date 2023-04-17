@@ -41,6 +41,11 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
     else if (url === '/message' && method == 'POST') {
+        const body = [];
+        req.on('data', function (datachunk) {
+            console.log(datachunk);
+            body.push(datachunk);
+        });
         res.setHeader('Content-Type', "text/html");
         res.write("Received Message Form");
         return res.end();
