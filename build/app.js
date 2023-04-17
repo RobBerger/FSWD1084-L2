@@ -26,10 +26,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http = __importStar(require("http"));
 const port = 3000;
 const server = http.createServer((req, res) => {
-    console.log(req.url);
-    console.log(req.method);
-    console.log(req.headers);
-    res.end('Hello World');
+    res.setHeader('Content-Type', 'text/html');
+    res.write("<html>");
+    res.write("<head><title>Node Server</title></head>");
+    res.write("<body><h2>Hello World</h2></body>");
+    res.write("</html>");
+    res.end();
 });
 server.listen(port, () => {
     console.log(`Server listeneing on port ${port}`);
