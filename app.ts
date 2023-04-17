@@ -7,17 +7,22 @@ const server = http.createServer((req: http.IncomingMessage, res: http.ServerRes
     const method = req.method;
 
     if (url === '/message' && method === 'GET') {
+        res.setHeader('Content-Type', "text/html");
         res.write("<html>");
         res.write("<head><title>Node Server</title></head>");
         res.write("<body>");
         res.write("<h2>Message Form</h2>");
-        // Using back ticks so we can include quotation marks
-        res.write(`<form><input type="text" name="message"><button type="submit">Submit</button></form>`)
+        // form tag updated with the method and action attributes
+        res.write(`<form method="POST" action="/message"><input type="text" name="message"><button>Submit</button></form>`)
         res.write("</body>");
         res.write("</html>");
-        
-        return res.end()
-    } 
+        return res.end();
+    }
+    else if (url === '/message' && method == 'POST') {
+        res.setHeader('Content-Type', "text/html");
+        res.write("Received Message Form")
+        return res.end();
+    }
 
     res.write("<html>");
     res.write("<head><title>Node Server</title></head>");
