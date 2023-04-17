@@ -26,9 +26,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http = __importStar(require("http"));
 const port = 3000;
 const server = http.createServer((req, res) => {
-    console.log("INCOMING MESSAGE REQUEST OBJECT");
-    console.log("-------------------------------");
-    console.log(req);
+    console.log(req.url);
+    console.log(req.method);
+    console.log(req.headers);
     res.end('Hello World');
 });
 server.listen(port, () => {
