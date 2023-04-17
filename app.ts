@@ -19,29 +19,27 @@ const server = http.createServer((req: http.IncomingMessage, res: http.ServerRes
         return res.end();
     }
     else if (url === '/message' && method == 'POST') {
-
         const body: Buffer[] = [];
-    
-        req.on('data', function(datachunk) {
+
+        req.on('data', function (datachunk) {
             console.log(datachunk);
             body.push(datachunk);
         });
-    
-        req.on('end', function() {
+
+        req.on('end', function () {
             const parsedBody = Buffer.concat(body).toString();
             console.log(parsedBody);
+            const value = parsedBody.split("=")[1];
+            res.write("<html>");
+            res.write("<head><title>Node Server</title></head>");
+            res.write("<body>");
+            res.write("<div>Received Message Form</div>")
+            res.write(`<div>Message Content: ${value}</div>`); 
+            res.write("</body>");
+            res.write("</html>");
+            return res.end();
         });
-    
-        res.setHeader('Content-Type', "text/html");
-        res.write("Received Message Form")
-        return res.end();
     }
-
-    res.write("<html>");
-    res.write("<head><title>Node Server</title></head>");
-    res.write("<body><h2>Hello World</h2></body>");
-    res.write("</html>");
-    res.end();
 });
 
 server.listen(port, () => {
