@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node build/app.js"
+    "build": "tsc",
+    "start": "node build/app.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon build/app.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
     "typescript": "^5.0.4"
   },
   "devDependencies": {
+    "concurrently": "^8.0.1",
     "nodemon": "^2.0.22"
   }
 }
